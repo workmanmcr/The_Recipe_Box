@@ -1,5 +1,5 @@
 @{
-    Layout = "_Layout"
+    Layout = "_Layout";
 }
 
 @using RecipeBox.Models
@@ -13,9 +13,6 @@
 
     @Html.LabelFor(model => model.Name)
     @Html.EditorFor(model => model.Name)
-
-    @Html.LabelFor(model => model.Ingredients)
-    @Html.DropDownList("IngredientId")
 
     @Html.LabelFor(model => model.Instruction)
     @Html.TextAreaFor(model => model.Instruction)

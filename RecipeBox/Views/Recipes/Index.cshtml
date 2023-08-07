@@ -1,5 +1,5 @@
 @{
-  Layout = "_Layout"
+  Layout = "_Layout";
 }
 @using RecipeBox.Models
 
@@ -10,8 +10,11 @@
 <h3> No recipe has been added yet. </h3>
 }
 <ul>
-  @foreach(Recipe recipe in model)
+  @foreach(Recipe recipe in Model)
   {
-    <li>@Html.ActionLink()</li>
+    <li>@Html.ActionLink($"{recipe.Name}", "Details", new { id = recipe.RecipeId })</li>
   }
 </ul>
+
+<p>@Html.ActionLink("Add Recipe", "Create")</p>
+<p>@Html.ActionLink("Home", "Index", "Home")</p>

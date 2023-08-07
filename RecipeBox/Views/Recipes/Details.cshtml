@@ -1,8 +1,9 @@
 @{
-    Layout = "_Layout"
+    Layout = "_Layout";
 }
 
 @using RecipeBox.Models
+@model RecipeBox.Models.Recipe
 
 <h2>Recipe:</h2>
 
@@ -12,17 +13,29 @@
 
 <br>
 
-<h4>@Html.DisplayNameFor(model => model.Ingredients)</h4>
-
-@foreach (Ingredient ingredient in Model.Ingredients)
+<h4>Ingredients:</h4>
+@if (@Model.JoinEntities.Count == 0)
 {
-    <li>@ingredient.Measurement @ingredient.Name</li>
+    <p>This Recipe does not have any Ingredients yet!</p>
 }
-
+else
+{
+    <ul>
+        @foreach (RecipeIngredient join in Model.JoinEntities)
+        {
+            <li>@join.Ingredient.IngredientName</li>
+            {
+        @Html.Hidden("joinId", @join.RecipeIngredientId)
+        <input type="submit" value="Delete"/>
+      }
+        }
+    </ul>
+}
 <h4>@Html.DisplayNameFor(model => model.Instruction)</h4>
 
 <p>@Html.DisplayFor(model => model.Instruction)
 <br>
 <br>
+<p>@Html.ActionLink("Add Ingredient", "AddIngredient")</p>
 <p>@Html.ActionLink("Recipe List", "Index")</p>
 <p>@Html.ActionLink("Home", "Index", "Home")</p>

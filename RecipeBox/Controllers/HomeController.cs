@@ -1,31 +1,30 @@
-﻿using System.Diagnostics;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using RecipeBox.Models;
+using System.Collections.Generic;
+using System.Linq;
+using Microsoft.AspNetCore.Identity;
+using System.Threading.Tasks;
+using System.Security.Claims;
 
 namespace RecipeBox.Controllers;
 
 public class HomeController : Controller
-{
-    private readonly ILogger<HomeController> _logger;
-
-    public HomeController(ILogger<HomeController> logger)
     {
-        _logger = logger;
-    }
+        private readonly RecipeBoxContext _db;
 
-    public IActionResult Index()
-    {
-        return View();
-    }
-
-    public IActionResult Privacy()
-    {
-        return View();
-    }
-
-    [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-    public IActionResult Error()
-    {
-        return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
-    }
+        public HomeController(RecipeBoxContext db)
+        {
+            _db = db;
+        }
+ 
+        [HttpGet("/")]
+        public ActionResult Index()
+        {
+            Recipe[] recipes = _db.Recipes.ToArray();
+            Ingredient[] ingredients = _db.Ingredients.ToArray();
+            Dictionary<string, object[]> model = new Dictionary<string, object[]>();
+            model.Add("recipes", recipes);
+            model.Add("ingredients", ingredients);
+            return View(model);
+        }
 }
