@@ -1,0 +1,28 @@
+@{
+    Layout = "_Layout"
+}
+
+@using RecipeBox.Models
+
+<h2>Recipe:</h2>
+
+<hr>
+
+<h3>@Html.DisplayFor(model => model.Name)</h3>
+
+<br>
+
+<h4>@Html.DisplayNameFor(model => model.Ingredients)</h4>
+
+@foreach (Ingredient ingredient in Model.Ingredients)
+{
+    <li>@ingredient.Measurement @ingredient.Name</li>
+}
+
+<h4>@Html.DisplayNameFor(model => model.Instruction)</h4>
+
+<p>@Html.DisplayFor(model => model.Instruction)
+<br>
+<br>
+<p>@Html.ActionLink("Recipe List", "Index")</p>
+<p>@Html.ActionLink("Home", "Index", "Home")</p>
