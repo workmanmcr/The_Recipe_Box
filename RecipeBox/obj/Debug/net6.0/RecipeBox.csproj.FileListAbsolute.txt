@@ -33,3 +33,5 @@ C:\Users\INTEL 10700K\desktop\RecipeBox.solution\RecipeBox\obj\Debug\net6.0\refi
 C:\Users\INTEL 10700K\desktop\RecipeBox.solution\RecipeBox\obj\Debug\net6.0\RecipeBox.pdb
 C:\Users\INTEL 10700K\desktop\RecipeBox.solution\RecipeBox\obj\Debug\net6.0\RecipeBox.genruntimeconfig.cache
 C:\Users\INTEL 10700K\desktop\RecipeBox.solution\RecipeBox\obj\Debug\net6.0\ref\RecipeBox.dll
+C:\Users\INTEL 10700K\desktop\RecipeBox.solution\RecipeBox\bin\Debug\net6.0\Newtonsoft.Json.dll
+C:\Users\INTEL 10700K\desktop\RecipeBox.solution\RecipeBox\bin\Debug\net6.0\RestSharp.dll

@@ -26,5 +26,6 @@ public class HomeController : Controller
             model.Add("recipes", recipes);
             model.Add("ingredients", ingredients);
             return View(model);
+            
         }
 }

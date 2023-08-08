@@ -41,7 +41,7 @@ namespace RecipeBox.Controllers
 
     public ActionResult Details(int id)
     {
-      Ingredient thisIngredient = _db.Ingredients.Include(ingredient => ingredient.JoinEntities).FirstOrDefault(ingredient => ingredient.IngredientId == id);
+      Ingredient thisIngredient = _db.Ingredients.Include(ingredient => ingredient.JoinEntities).ThenInclude(join => join.Recipe).FirstOrDefault(ingredient => ingredient.IngredientId == id);
       return View(thisIngredient);
     }
 
@@ -79,10 +79,12 @@ namespace RecipeBox.Controllers
     public ActionResult AddRecipe(int id)
     {
       Ingredient thisIngredient = _db.Ingredients.FirstOrDefault(ingredient => ingredient.IngredientId == id);
-      ViewBag.Recipes = new SelectList(_db.Recipes, "RecipeId", "Ingredient");
+      ViewBag.RecipeId = new SelectList(_db.Recipes, "RecipeId", "Name");
       return View(thisIngredient);
     }
-    public ActionResult AddIngredient(Ingredient ingredient, int recipeId)
+
+    [HttpPost]
+    public ActionResult AddRecipe(Ingredient ingredient, int recipeId)
     {
 #nullable enable
       RecipeIngredient? joinEntity = _db.RecipeIngredients.FirstOrDefault(join => (join.IngredientId == ingredient.IngredientId && join.RecipeId == recipeId));
@@ -95,6 +97,14 @@ namespace RecipeBox.Controllers
       }
       return RedirectToAction("Details", new { id = ingredient.IngredientId });
     }
+        [HttpPost]
+    public ActionResult DeleteJoin(int joinId)
+    {
+      RecipeIngredient joinEntry = _db.RecipeIngredients.FirstOrDefault(entry => entry.RecipeIngredientId == joinId);
+      _db.RecipeIngredients.Remove(joinEntry);
+      _db.SaveChanges();
+      return RedirectToAction("Index");
+    } 
   }
 
 }

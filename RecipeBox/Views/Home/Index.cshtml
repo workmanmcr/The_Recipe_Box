@@ -4,14 +4,23 @@
 
 @using RecipeBox.Models;
 
+@using RecipeBox.Models;
+
+@{
+    // Generate a random number between 1 and 1000
+    Random random = new Random();
+    int randomNumber = random.Next(1, 1000);
+}
+
 <h1>Welcome to the Recipe Box!</h1>
+<img src="https://baconmockup.com/@randomNumber/@randomNumber" alt="MEAT" />
 
 <hr>
 
 <h4>Recipes</h4>
 @if (Model["recipes"].Length == 0)
 {
-  <p>No Recipes have been added yet!</p>
+  <p>No recipes have been added yet!</p>
 } 
 <ul>
   @foreach (Recipe recipe in Model["recipes"])
@@ -20,28 +29,29 @@
   }
 </ul>
 
-@* @if (User.Identity.IsAuthenticated)
+@if (User.Identity.IsAuthenticated)
 {
-  <h4>Items for @User.Identity.Name</h4>
-  @if (Model["items"].Length == 0)
+  <h4>Ingredients for @User.Identity.Name</h4>
+  @if (Model["ingredients"].Length == 0)
   {
-    <p>No items have been added yet!</p>
+    <p>No ingredients have been added yet!</p>
   } 
   <ul>
-    @foreach (Item item in Model["items"])
+    @foreach (Ingredient ingredient in Model["ingredients"])
     {
-      <li>@Html.ActionLink(@item.Description, "Details", "Items", new { id = @item.ItemId})</li>
+      <li>@Html.ActionLink(@ingredient.IngredientName, "Details", "Ingredients", new { id = @ingredient.IngredientId})</li>
     }
   </ul>
 }
 else
 {
-  <h4>Items</h4>
-  <p>Please @Html.ActionLink("log in", "LogIn", "Account") to view or manage your items.</p>
-} *@
+  <h4>Ingredients</h4>
+  <p>Please @Html.ActionLink("log in", "LogIn", "Account") to view or manage your ingredients.</p>
+}
 
 <hr>
 
 <p>@Html.ActionLink("Manage Recipes", "Index", "Recipes")</p> 
 <p>@Html.ActionLink("Manage Ingredients", "Index", "Ingredients")</p>
-@*<p>@Html.ActionLink("Create or manage an account", "Index", "Account")</p>*@
+<p>@Html.ActionLink("Manage Tags", "Index", "Tags")</p>
+<p>@Html.ActionLink("Create or manage an account", "Index", "Account")</p>

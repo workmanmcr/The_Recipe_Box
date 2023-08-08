@@ -6,6 +6,8 @@ namespace RecipeBox.Models
     public int RecipeId { get; set; }
     public string Name { get; set; }
     public string Instruction {get; set; }
-    public List<RecipeIngredient> JoinEntities { get; set; } 
+    public int Rating { get; set; }
+    public List<RecipeIngredient> JoinEntities { get; } 
+    public List<RecipeTag> JoinTags { get; }
   }
 }
