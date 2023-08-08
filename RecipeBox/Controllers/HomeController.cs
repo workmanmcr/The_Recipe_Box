@@ -20,7 +20,7 @@ public class HomeController : Controller
         [HttpGet("/")]
         public ActionResult Index()
         {
-            Recipe[] recipes = _db.Recipes.ToArray();
+            Recipe[] recipes = _db.Recipes.OrderByDescending(recipe => recipe.Rating).ToArray();
             Ingredient[] ingredients = _db.Ingredients.ToArray();
             Dictionary<string, object[]> model = new Dictionary<string, object[]>();
             model.Add("recipes", recipes);

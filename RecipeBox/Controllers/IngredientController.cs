@@ -24,7 +24,7 @@ namespace RecipeBox.Controllers
         List<Ingredient> model = _db.Ingredients.ToList();
       return View(model);
     }
-
+    [Authorize]
     public ActionResult Create()
     {
       ViewBag.RecipeId = new SelectList(_db.Recipes, "RecipeId", "Name");
@@ -44,7 +44,7 @@ namespace RecipeBox.Controllers
       Ingredient thisIngredient = _db.Ingredients.Include(ingredient => ingredient.JoinEntities).ThenInclude(join => join.Recipe).FirstOrDefault(ingredient => ingredient.IngredientId == id);
       return View(thisIngredient);
     }
-
+    [Authorize]
     public ActionResult Edit(int id)
     {
       Ingredient thisIngredient = _db.Ingredients.FirstOrDefault(ingredient => ingredient.IngredientId == id);
@@ -59,7 +59,7 @@ namespace RecipeBox.Controllers
       _db.SaveChanges();
       return RedirectToAction("Index");
     }
-
+    [Authorize]
     public ActionResult Delete(int id)
     {
       Ingredient thisIngredient = _db.Ingredients.FirstOrDefault(ingredient => ingredient.IngredientId == id);
@@ -75,7 +75,7 @@ namespace RecipeBox.Controllers
       _db.SaveChanges();
       return RedirectToAction("Index");
     }
-
+    [Authorize]
     public ActionResult AddRecipe(int id)
     {
       Ingredient thisIngredient = _db.Ingredients.FirstOrDefault(ingredient => ingredient.IngredientId == id);
@@ -97,6 +97,7 @@ namespace RecipeBox.Controllers
       }
       return RedirectToAction("Details", new { id = ingredient.IngredientId });
     }
+    [Authorize]
         [HttpPost]
     public ActionResult DeleteJoin(int joinId)
     {

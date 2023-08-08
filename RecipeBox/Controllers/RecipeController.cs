@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authorization;
 using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 using RecipeBox.Models;
@@ -21,7 +22,7 @@ public ActionResult Index()
     List<Recipe> model = _db.Recipes.ToList();
   return View(model);
 }
-
+[Authorize]
 public ActionResult Create()
 {
     ViewBag.IngredientId = new SelectList(_db.Ingredients, "IngredientId", "IngredientName");
@@ -41,7 +42,7 @@ public ActionResult Details(int id)
     Recipe thisRecipe = _db.Recipes.Include(recipe => recipe.JoinEntities).ThenInclude(join => join.Ingredient).Include(recipe => recipe.JoinTags).ThenInclude(join => join.Tag).FirstOrDefault(recipe => recipe.RecipeId == id);
     return View(thisRecipe);
 }
-
+[Authorize]
 public ActionResult Edit(int id)
 {
     Recipe thisRecipe = _db.Recipes.FirstOrDefault(recipe => recipe.RecipeId == id);
@@ -56,7 +57,7 @@ public ActionResult Edit(Recipe recipe)
     _db.SaveChanges();
     return RedirectToAction("Index");
 }
-
+[Authorize]
 public ActionResult Delete(int id)
 {
     Recipe thisRecipe = _db.Recipes.FirstOrDefault(recipe => recipe.RecipeId == id);
@@ -72,7 +73,7 @@ public ActionResult DeleteConfirmed (int id)
    _db.SaveChanges();
    return RedirectToAction("Index"); 
 }
-
+[Authorize]
 public ActionResult AddIngredient (int id)
 {
     Recipe thisRecipe = _db.Recipes.FirstOrDefault(recipe=> recipe.RecipeId == id);
@@ -94,6 +95,7 @@ public ActionResult AddIngredient(Recipe recipe, int ingredientId)
     }
     return RedirectToAction("Details", new { id = recipe.RecipeId });
 }
+[Authorize]
  [HttpPost]
     public ActionResult DeleteIngredient(int joinId)
     {
@@ -102,6 +104,7 @@ public ActionResult AddIngredient(Recipe recipe, int ingredientId)
       _db.SaveChanges();
       return RedirectToAction("Index");
     }
+    [Authorize]
     public ActionResult AddTag (int id)
 {
     Recipe thisRecipe = _db.Recipes.FirstOrDefault(recipe=> recipe.RecipeId == id);

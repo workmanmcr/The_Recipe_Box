@@ -17,6 +17,9 @@
     @Html.LabelFor(model => model.Instruction)
     @Html.TextAreaFor(model => model.Instruction)
 
+    @Html.LabelFor(model => model.Rating)
+    @Html.TextBoxFor(model => model.Rating, new { type = "number", min="0",max="5"})
+
     <input type="submit" value="Save" />
 }
 <p>@Html.ActionLink("Show all recipes", "Index")</p>
