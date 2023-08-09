@@ -8,26 +8,26 @@ a.navbar-brand[b-tfc53pmeq4] {
 }
 
 a[b-tfc53pmeq4] {
-  color: #0077cc;
+  color: #000000;
 }
 
 .btn-primary[b-tfc53pmeq4] {
-  color: #fff;
+  color: #e90000;
   background-color: #1b6ec2;
   border-color: #1861ac;
 }
 
 .nav-pills .nav-link.active[b-tfc53pmeq4], .nav-pills .show > .nav-link[b-tfc53pmeq4] {
-  color: #fff;
+  color: #e80000;
   background-color: #1b6ec2;
   border-color: #1861ac;
 }
 
 .border-top[b-tfc53pmeq4] {
-  border-top: 1px solid #e5e5e5;
+  border-top: 1px solid #ff0000;
 }
 .border-bottom[b-tfc53pmeq4] {
-  border-bottom: 1px solid #e5e5e5;
+  border-bottom: 1px solid #ff0000;
 }
 
 .box-shadow[b-tfc53pmeq4] {
@@ -45,4 +45,13 @@ button.accept-policy[b-tfc53pmeq4] {
   width: 100%;
   white-space: nowrap;
   line-height: 60px;
+}
+
+#header[b-tfc53pmeq4] {
+  background-color: black;
+  color: rgb(254, 145, 2);
+}
+
+#login[b-tfc53pmeq4] {
+  margin-right: 200px;
 }

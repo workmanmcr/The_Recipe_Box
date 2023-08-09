@@ -15,7 +15,7 @@ html {
 }
 
 body {
-  background-image: linear-gradient(red, yellow, green);
+  background-image: linear-gradient(black, red, yellow, green, black);
   margin-bottom: 60px;
 }
 

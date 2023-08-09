@@ -9,8 +9,8 @@
     <link rel="stylesheet" href="~/RecipeBox.styles.css" asp-append-version="true" />
 </head>
 <body>
-    <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+    <header id="header">
+        <nav class="navbar navbar-toggleable-sm box-shadow mb-3">
             <div class="container-fluid">
                 <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">RecipeBox</a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
@@ -24,6 +24,19 @@
                         </li>
                     </ul>
                 </div>
+                <div id="login">
+                    @Html.ActionLink("Login/Create Account", "Index", "Account")
+                </div> 
+                
+                @using (Html.BeginForm("Search", "Home", FormMethod.Get))
+                {
+                    <div class="form-group">
+                        @Html.Label("Search:")
+                        @Html.TextBox("searchTerm", null, new { @class = "form-control" })
+                        <button type="submit" class="btn btn-primary">Search</button>
+                    </div>
+                }
+                
             </div>
         </nav>
     </header>
