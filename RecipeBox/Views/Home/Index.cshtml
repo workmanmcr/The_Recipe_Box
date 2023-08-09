@@ -1,15 +1,17 @@
 ﻿@{
   Layout = "_Layout";
 }
+
+@using RecipeBox.Models;
 @{
-    // Generate a random number between 1 and 1000
+    
     Random random = new Random();
     int randomNumber = random.Next(1, 999);
 }
-@using RecipeBox.Models;
+
 
 <h1>Welcome to the Recipe Box!</h1>
-<h3>@Html.ActionLink("Recipe Roulette", "RandomMeal", "Home")</h3>
+<h3>@Html.ActionLink("Recipe Roulette", "MealOfTheDay")</h3>
 <img src="https://baconmockup.com/@randomNumber/@randomNumber" alt="MEAT" />
 
 <hr>

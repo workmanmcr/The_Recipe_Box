@@ -2,63 +2,69 @@ using System.Collections.Generic;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System.Threading.Tasks;
+using RestSharp;
+using RecipeBox.Models;
 
 namespace RecipeBox.Models
 {
     public class RandomMeal
     {
-        public string Meal { get; set; }
+        public string strMeal { get; set; }
         public string Instructions { get; set; }
-        public string Ingredient1 { get; set; }
-        public string Ingredient2 { get; set; }
-        public string Ingredient3 { get; set; }
-        public string Ingredient4 { get; set; }
-        public string Ingredient5 { get; set; }
-        public string Ingredient6 { get; set; }
-        public string Ingredient7 { get; set; }
-        public string Ingredient8 { get; set; }
-        public string Ingredient9 { get; set; }
-        public string Ingredient10 { get; set; }
-        public string Ingredient11 { get; set; }
-        public string Ingredient12 { get; set; }
-        public string Ingredient13 { get; set; }
-        public string Ingredient14 { get; set; }
-        public string Ingredient15 { get; set; }
-        public string Ingredient16 { get; set; }
-        public string Ingredient17 { get; set; }
-        public string Ingredient18 { get; set; }
-        public string Ingredient19 { get; set; }
-        public string Ingredient20 { get; set; }
-        public string Measure1 { get; set; }
-        public string Measure2 { get; set; }
-        public string Measure3 { get; set; }
-        public string Measure4 { get; set; }
-        public string Measure5 { get; set; }
-        public string Measure6 { get; set; }
-        public string Measure7 { get; set; }
-        public string Measure8 { get; set; }
-        public string Measure9 { get; set; }
-        public string Measure10 { get; set; }
-        public string Measure11 { get; set; }
-        public string Measure12 { get; set; }
-        public string Measure13 { get; set; }
-        public string Measure14 { get; set; }
-        public string Measure15 { get; set; }
-        public string Measure16 { get; set; }
-        public string Measure17 { get; set; }
-        public string Measure18 { get; set; }
-        public string Measure19 { get; set; }
-        public string Measure20 { get; set; }
+        public string strIngredient1 { get; set; }
+        public string strIngredient2 { get; set; }
+        public string strIngredient3 { get; set; }
+        public string strIngredient4 { get; set; }
+        public string strIngredient5 { get; set; }
+        public string strIngredient6 { get; set; }
+        public string strIngredient7 { get; set; }
+        public string strIngredient8 { get; set; }
+        public string strIngredient9 { get; set; }
+        public string strIngredient10 { get; set; }
+        public string strIngredient11 { get; set; }
+        public string strIngredient12 { get; set; }
+        public string strIngredient13 { get; set; }
+        public string strIngredient14 { get; set; }
+        public string strIngredient15 { get; set; }
+        public string strIngredient16 { get; set; }
+        public string strIngredient17 { get; set; }
+        public string strIngredient18 { get; set; }
+        public string strIngredient19 { get; set; }
+        public string strIngredient20 { get; set; }
+        public string strMeasure1 { get; set; }
+        public string strMeasure2 { get; set; }
+        public string strMeasure3 { get; set; }
+        public string strMeasure4 { get; set; }
+        public string strMeasure5 { get; set; }
+        public string strMeasure6 { get; set; }
+        public string strMeasure7 { get; set; }
+        public string strMeasure8 { get; set; }
+        public string strMeasure9 { get; set; }
+        public string strMeasure10 { get; set; }
+        public string strMeasure11 { get; set; }
+        public string strMeasure12 { get; set; }
+        public string strMeasure13 { get; set; }
+        public string strMeasure14 { get; set; }
+        public string strMeasure15 { get; set; }
+        public string strMeasure16 { get; set; }
+        public string strMeasure17 { get; set; }
+        public string strMeasure18 { get; set; }
+        public string strMeasure19 { get; set; }
+        public string strMeasure20 { get; set; }
 
-        public static List<RandomMeal> GetMeal(string apiKey)
+        public static async Task<RandomMeal> GetMeal(string apiKey)
         {
-            Task<string> apiCallTask = ApiHelper.ApiCall(apiKey);
-            string result = apiCallTask.Result;
-
+              string endpoint = "1/random.php"; // Replace with the actual API endpoint
+            string result = await ApiHelper.ApiCall(apiKey, endpoint);
+            
             JObject jsonResponse = JsonConvert.DeserializeObject<JObject>(result);
-            List<RandomMeal> mealList = JsonConvert.DeserializeObject<List<RandomMeal>>(jsonResponse["results"].ToString());
-
-            return mealList;
-        }
+            JArray meals = (JArray)jsonResponse["meals"];
+            if (meals != null && meals.Count > 0)
+            {
+                RandomMeal randomMeal = meals[0].ToObject<RandomMeal>();
+                return randomMeal;
+            }
+            return new RandomMeal();
     }
+}
 }

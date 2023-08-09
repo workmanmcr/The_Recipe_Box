@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Identity;
 using System.Threading.Tasks;
 using System.Security.Claims;
 using RestSharp;
+using Microsoft.Extensions.Configuration;
 
 namespace RecipeBox.Controllers
 {
@@ -51,10 +52,10 @@ public class HomeController : Controller
         return View("SearchResults", searchResults);
     }
 
-    public ActionResult MealOfTheDay()
+    public async Task<IActionResult> MealOfTheDay()
     {
-        Task<RandomMeal> meal = RandomMeal.GetMeal(_apiKey);
-        return View(meal);
+        RandomMeal meal = await RandomMeal.GetMeal(_apiKey);
+    return View("MealOfTheDay", meal);
     }
 
 }

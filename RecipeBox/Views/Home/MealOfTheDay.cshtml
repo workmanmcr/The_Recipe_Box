@@ -2,32 +2,31 @@
     Layout = "_Layout";
 }
 @using RecipeBox.Models
-@foreach (RandomMeal meal in Model)
 {
-    <h1>@meal.Meal</h1>
+    <h1>@Model.strMeal</h1>
     <ul>
-        <li>@meal.Measure1 @meal.Ingredient1</li>
-        <li>@meal.Measure2 @meal.Ingredient2</li>
-        <li>@meal.Measure3 @meal.Ingredient3</li>
-        <li>@meal.Measure4 @meal.Ingredient4</li>
-        <li>@meal.Measure5 @meal.Ingredient5</li>
-        <li>@meal.Measure6 @meal.Ingredient6</li>
-        <li>@meal.Measure7 @meal.Ingredient7</li>
-        <li>@meal.Measure8 @meal.Ingredient8</li>
-        <li>@meal.Measure9 @meal.Ingredient9</li>
-        <li>@meal.Measure10 @meal.Ingredient10</li>
-        <li>@meal.Measure11 @meal.Ingredient11</li>
-        <li>@meal.Measure12 @meal.Ingredient12</li>
-        <li>@meal.Measure13 @meal.Ingredient13</li>
-        <li>@meal.Measure14 @meal.Ingredient14</li>
-        <li>@meal.Measure15 @meal.Ingredient15</li>
-        <li>@meal.Measure16 @meal.Ingredient16</li>
-        <li>@meal.Measure17 @meal.Ingredient17</li>
-        <li>@meal.Measure18 @meal.Ingredient18</li>
-        <li>@meal.Measure19 @meal.Ingredient19</li>
-        <li>@meal.Measure20 @meal.Ingredient20</li>
+        <li>@Model.strMeasure1 @Model.strIngredient1</li>
+        <li>@Model.strMeasure2 @Model.strIngredient2</li>
+        <li>@Model.strMeasure3 @Model.strIngredient3</li>
+        <li>@Model.strMeasure4 @Model.strIngredient4</li>
+        <li>@Model.strMeasure5 @Model.strIngredient5</li>
+        <li>@Model.strMeasure6 @Model.strIngredient6</li>
+        <li>@Model.strMeasure7 @Model.strIngredient7</li>
+        <li>@Model.strMeasure8 @Model.strIngredient8</li>
+        <li>@Model.strMeasure9 @Model.strIngredient9</li>
+        <li>@Model.strMeasure10 @Model.strIngredient10</li>
+        <li>@Model.strMeasure11 @Model.strIngredient11</li>
+        <li>@Model.strMeasure12 @Model.strIngredient12</li>
+        <li>@Model.strMeasure13 @Model.strIngredient13</li>
+        <li>@Model.strMeasure14 @Model.strIngredient14</li>
+        <li>@Model.strMeasure15 @Model.strIngredient15</li>
+        <li>@Model.strMeasure16 @Model.strIngredient16</li>
+        <li>@Model.strMeasure17 @Model.strIngredient17</li>
+        <li>@Model.strMeasure18 @Model.strIngredient18</li>
+        <li>@Model.strMeasure19 @Model.strIngredient19</li>
+        <li>@Model.strMeasure20 @Model.strIngredient20</li>
     </ul>
     <br>
     <br>
-    <p>@meal.Instructions</p>
+    <p>@Model.Instructions</p>
 }
