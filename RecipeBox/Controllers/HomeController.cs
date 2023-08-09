@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using RecipeBox.Models;
+using RecipeBox.ViewModels;
 using System.Collections.Generic;
 using System.Linq;
 using Microsoft.AspNetCore.Identity;
@@ -28,4 +29,23 @@ public class HomeController : Controller
             return View(model);
             
         }
+        public ActionResult Search(string searchTerm)
+    {
+        List<Recipe> recipeResults = _db.Recipes
+            .Where(recipe => recipe.Name.Contains(searchTerm) || recipe.Instruction.Contains(searchTerm))
+            .ToList();
+
+        List<Ingredient> ingredientResults = _db.Ingredients
+            .Where(ingredient => ingredient.IngredientName.Contains(searchTerm))
+            .ToList();
+
+        var searchResults = new SearchResults
+        {
+            RecipeResults = recipeResults,
+            IngredientResults = ingredientResults
+        };
+
+        return View("SearchResults", searchResults);
+    }
+       
 }

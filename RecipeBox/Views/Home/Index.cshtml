@@ -1,14 +1,21 @@
 ﻿@{
   Layout = "_Layout";
 }
-
-@using RecipeBox.Models;
-
-
 @{
     // Generate a random number between 1 and 1000
     Random random = new Random();
-    int randomNumber = random.Next(1, 1000);
+    int randomNumber = random.Next(1, 999);
+}
+@using RecipeBox.Models;
+
+
+@using (Html.BeginForm("Search", "Home", FormMethod.Get))
+{
+    <div class="form-group">
+        @Html.Label("Search:")
+        @Html.TextBox("searchTerm", null, new { @class = "form-control" })
+        <button type="submit" class="btn btn-primary">Search</button>
+    </div>
 }
 
 <h1>Welcome to the Recipe Box!</h1>

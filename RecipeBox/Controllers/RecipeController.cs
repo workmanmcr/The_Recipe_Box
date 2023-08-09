@@ -126,6 +126,21 @@ public ActionResult AddTag(Recipe recipe, int tagId)
     }
     return RedirectToAction("Details", new { id = recipe.RecipeId });
   }
+//    public ActionResult SearchForm(string searchTerm)
+//         {
+//             List<Recipe> searchResults = _db.Recipes
+//             .Where(RecipeBox => RecipeBox.Name.Contains(searchTerm) || Recipe.Description.Contains(searchTerm))
+//             .ToList
+//             return View("SearchResults", searchResults);
+//         }
+
+        // public async Task<IActionResult> SearchForm(string searchString)
+        // {
+        //     if (_context.Recipe == null)
+        //     {
+        //         return Problem()
+        //     }
+        // }
 }
 }
 

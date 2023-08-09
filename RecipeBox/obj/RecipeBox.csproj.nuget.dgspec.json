@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\INTEL 10700K\\desktop\\RecipeBox.solution\\RecipeBox\\RecipeBox.csproj": {}
+    "C:\\Users\\INTEL 10700K\\Desktop\\RecipeBox.solution\\RecipeBox\\RecipeBox.csproj": {}
   },
   "projects": {
-    "C:\\Users\\INTEL 10700K\\desktop\\RecipeBox.solution\\RecipeBox\\RecipeBox.csproj": {
+    "C:\\Users\\INTEL 10700K\\Desktop\\RecipeBox.solution\\RecipeBox\\RecipeBox.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\INTEL 10700K\\desktop\\RecipeBox.solution\\RecipeBox\\RecipeBox.csproj",
+        "projectUniqueName": "C:\\Users\\INTEL 10700K\\Desktop\\RecipeBox.solution\\RecipeBox\\RecipeBox.csproj",
         "projectName": "RecipeBox",
-        "projectPath": "C:\\Users\\INTEL 10700K\\desktop\\RecipeBox.solution\\RecipeBox\\RecipeBox.csproj",
+        "projectPath": "C:\\Users\\INTEL 10700K\\Desktop\\RecipeBox.solution\\RecipeBox\\RecipeBox.csproj",
         "packagesPath": "C:\\Users\\INTEL 10700K\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\INTEL 10700K\\desktop\\RecipeBox.solution\\RecipeBox\\obj\\",
+        "outputPath": "C:\\Users\\INTEL 10700K\\Desktop\\RecipeBox.solution\\RecipeBox\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\INTEL 10700K\\AppData\\Roaming\\NuGet\\NuGet.Config",

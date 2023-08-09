@@ -1,0 +1,38 @@
+@{
+  Layout = "_Layout";
+}
+@using RecipeBox.ViewModels;
+@model RecipeBox.ViewModels.SearchResults;
+
+<h2>Search Results</h2>
+
+@if (Model.RecipeResults.Count == 0 && Model.IngredientResults.Count == 0)
+{
+    <p>No results found for the search term.</p>
+}
+else
+{
+    @if (Model.RecipeResults.Count > 0)
+    {
+        <h3>Recipe Results</h3>
+        <ul>
+            @foreach (var recipe in Model.RecipeResults)
+            {
+                <li>
+                    @Html.ActionLink(recipe.Name, "Details", "Recipes", new { id = recipe.RecipeId }, null)
+                </li>
+            }
+        </ul>
+    }
+
+    @if (Model.IngredientResults.Count > 0)
+    {
+        <h3>Ingredient Results</h3>
+        <ul>
+            @foreach (var ingredient in Model.IngredientResults)
+            {
+                <li>@Html.ActionLink(ingredient.IngredientName, "Details", "Ingredients", new { id = ingredient.IngredientId})</li>
+            }
+        </ul>
+    }
+}
