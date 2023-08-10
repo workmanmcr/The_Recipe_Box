@@ -11,8 +11,8 @@ using RecipeBox.Models;
 namespace RecipeBox.Migrations
 {
     [DbContext(typeof(RecipeBoxContext))]
-    [Migration("20230808213929_AddRatings")]
-    partial class AddRatings
+    [Migration("20230810235108_AddRecipeUser")]
+    partial class AddRecipeUser
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -242,7 +242,12 @@ namespace RecipeBox.Migrations
                     b.Property<int>("Rating")
                         .HasColumnType("int");
 
+                    b.Property<string>("UserId")
+                        .HasColumnType("varchar(255)");
+
                     b.HasKey("RecipeId");
+
+                    b.HasIndex("UserId");
 
                     b.ToTable("Recipes");
                 });
@@ -287,6 +292,27 @@ namespace RecipeBox.Migrations
                     b.HasIndex("TagId");
 
                     b.ToTable("RecipeTags");
+                });
+
+            modelBuilder.Entity("RecipeBox.Models.RecipeUser", b =>
+                {
+                    b.Property<int>("RecipeUserId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<int>("RecipeId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("UserId")
+                        .HasColumnType("varchar(255)");
+
+                    b.HasKey("RecipeUserId");
+
+                    b.HasIndex("RecipeId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("RecipeUser");
                 });
 
             modelBuilder.Entity("RecipeBox.Models.Tag", b =>
@@ -354,6 +380,15 @@ namespace RecipeBox.Migrations
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("RecipeBox.Models.Recipe", b =>
+                {
+                    b.HasOne("RecipeBox.Models.ApplicationUser", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId");
+
+                    b.Navigation("User");
+                });
+
             modelBuilder.Entity("RecipeBox.Models.RecipeIngredient", b =>
                 {
                     b.HasOne("RecipeBox.Models.Ingredient", "Ingredient")
@@ -392,6 +427,28 @@ namespace RecipeBox.Migrations
                     b.Navigation("Tag");
                 });
 
+            modelBuilder.Entity("RecipeBox.Models.RecipeUser", b =>
+                {
+                    b.HasOne("RecipeBox.Models.Recipe", "Recipe")
+                        .WithMany("JoinUser")
+                        .HasForeignKey("RecipeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("RecipeBox.Models.ApplicationUser", "User")
+                        .WithMany("JoinUser")
+                        .HasForeignKey("UserId");
+
+                    b.Navigation("Recipe");
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("RecipeBox.Models.ApplicationUser", b =>
+                {
+                    b.Navigation("JoinUser");
+                });
+
             modelBuilder.Entity("RecipeBox.Models.Ingredient", b =>
                 {
                     b.Navigation("JoinEntities");
@@ -402,6 +459,8 @@ namespace RecipeBox.Migrations
                     b.Navigation("JoinEntities");
 
                     b.Navigation("JoinTags");
+
+                    b.Navigation("JoinUser");
                 });
 
             modelBuilder.Entity("RecipeBox.Models.Tag", b =>

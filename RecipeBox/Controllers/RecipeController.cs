@@ -6,22 +6,31 @@ using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Linq;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.AspNetCore.Identity;
+using System.Threading.Tasks;
+using System.Security.Claims;
 
 
 namespace RecipeBox.Controllers
 {
+[Authorize]
 public class RecipesController : Controller
 {
 private readonly RecipeBoxContext _db;
-public RecipesController(RecipeBoxContext db)
+private readonly UserManager<ApplicationUser> _userManager;
+
+public RecipesController(UserManager<ApplicationUser> userManager, RecipeBoxContext db)
 {
-  _db = db;
+    _userManager = userManager;
+    _db = db;
 }
-public ActionResult Index()
-{
-    List<Recipe> model = _db.Recipes.ToList();
-  return View(model);
-}
+public async Task<ActionResult> Index()
+ {
+      string userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+      ApplicationUser currentUser = await _userManager.FindByIdAsync(userId);
+      List<Recipe> userRecipes = _db.Recipes.Where(entry => entry.User.Id == currentUser.Id).Include(recipe => recipe.JoinEntities).ToList();
+      return View(userRecipes);
+    }
 [Authorize]
 public ActionResult Create()
 {
@@ -30,11 +39,22 @@ public ActionResult Create()
 }
 
 [HttpPost]
-public ActionResult Create(Recipe recipe)
+public async Task<ActionResult> Create(Recipe recipe, int IngredientId)
 {
-    _db.Recipes.Add(recipe);
-    _db.SaveChanges();
-    return RedirectToAction("Index");
+    if (!ModelState.IsValid)
+    {
+        ViewBag.IngredientId = new SelectList(_db.Ingredients, "IngredientId", "IngredientName");
+        return View(recipe);
+    }
+    else
+    {
+        string userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+        ApplicationUser currentUser = await _userManager.FindByIdAsync(userId);
+        recipe.User = currentUser;
+        _db.Recipes.Add(recipe);
+        _db.SaveChanges();
+        return RedirectToAction("Index");
+    }
 }
 
 public ActionResult Details(int id)
@@ -125,22 +145,37 @@ public ActionResult AddTag(Recipe recipe, int tagId)
         _db.SaveChanges();
     }
     return RedirectToAction("Details", new { id = recipe.RecipeId });
-  }
-//    public ActionResult SearchForm(string searchTerm)
-//         {
-//             List<Recipe> searchResults = _db.Recipes
-//             .Where(RecipeBox => RecipeBox.Name.Contains(searchTerm) || Recipe.Description.Contains(searchTerm))
-//             .ToList
-//             return View("SearchResults", searchResults);
-//         }
+}
 
-        // public async Task<IActionResult> SearchForm(string searchString)
-        // {
-        //     if (_context.Recipe == null)
-        //     {
-        //         return Problem()
-        //     }
-        // }
+public ActionResult AddUser (int id)
+{
+    Recipe thisRecipe = _db.Recipes.FirstOrDefault(recipe=> recipe.RecipeId == id);
+    ViewBag.Id = new SelectList(_db.AspNetUsers, "Id", "UserName");
+    return View(thisRecipe);
+}
+[HttpPost]
+public async Task<ActionResult> AddUser(Recipe recipe, string id)
+{
+    #nullable enable
+    ApplicationUser currentUser = await _userManager.FindByIdAsync(id);
+    RecipeUser? joinEntity = _db.RecipeUser.FirstOrDefault(join => (join.RecipeId == recipe.RecipeId && join.User.Id == id));
+    #nullable disable
+
+    if (joinEntity == null && recipe.RecipeId != 0)
+    {
+        _db.RecipeUser.Add(new RecipeUser() {RecipeId = recipe.RecipeId, User = currentUser});
+        _db.SaveChanges();
+    }
+    return RedirectToAction("Index");
+}
+
+public async Task<ActionResult> SharedRecipes(int id)
+{
+    string userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+    ApplicationUser currentUser = await _userManager.FindByIdAsync(id);
+    List<RecipeUser> sharedRecipes = _db.RecipeUser.Where(entry => entry.User.Id == currentUser.Id).Include(recipe => recipe.Recipe).ToList();
+    return View(sharedRecipes);
+}
 }
 }
 

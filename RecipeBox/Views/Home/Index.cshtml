@@ -17,16 +17,19 @@
 <hr>
 
 <h4>Recipes</h4>
-@if (Model["recipes"].Length == 0)
+@if (User.Identity.IsAuthenticated)
 {
-  <p>No recipes have been added yet!</p>
-} 
-<ul>
-  @foreach (Recipe recipe in Model["recipes"])
+  @if (Model["recipes"].Length == 0)
   {
-    <li>@Html.ActionLink(@recipe.Name, "Details", "Recipes", new { id = @recipe.RecipeId})</li>
-  }
-</ul>
+    <p>No recipes have been added yet!</p>
+  } 
+  <ul>
+    @foreach (Recipe recipe in Model["recipes"])
+    {
+      <li>@Html.ActionLink(@recipe.Name, "Details", "Recipes", new { id = @recipe.RecipeId})</li>
+    }
+  </ul>
+}
 
 @if (User.Identity.IsAuthenticated)
 {

@@ -25,3 +25,7 @@ img{
   border: 5px solid #749904;
   border-radius: 100px;
 }
+
+p {
+  color: aqua;
+}

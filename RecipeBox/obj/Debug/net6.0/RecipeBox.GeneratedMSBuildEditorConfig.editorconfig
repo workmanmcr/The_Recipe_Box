@@ -71,6 +71,10 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUmVjaXBlc1xBZGRUYWcuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
+[C:/Users/INTEL 10700K/Desktop/RecipeBox.solution/RecipeBox/Views/Recipes/AddUser.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUmVjaXBlc1xBZGRVc2VyLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
 [C:/Users/INTEL 10700K/Desktop/RecipeBox.solution/RecipeBox/Views/Recipes/Create.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUmVjaXBlc1xDcmVhdGUuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
@@ -89,6 +93,10 @@ build_metadata.AdditionalFiles.CssScope =
 
 [C:/Users/INTEL 10700K/Desktop/RecipeBox.solution/RecipeBox/Views/Recipes/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUmVjaXBlc1xJbmRleC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/INTEL 10700K/Desktop/RecipeBox.solution/RecipeBox/Views/Recipes/SharedRecipes.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUmVjaXBlc1xTaGFyZWRSZWNpcGVzLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/INTEL 10700K/Desktop/RecipeBox.solution/RecipeBox/Views/Tags/AddRecipe.cshtml]

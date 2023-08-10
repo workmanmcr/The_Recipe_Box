@@ -9,30 +9,45 @@ using System.Security.Claims;
 using RestSharp;
 using Microsoft.Extensions.Configuration;
 
+
 namespace RecipeBox.Controllers
 {
 public class HomeController : Controller
 {
     private readonly RecipeBoxContext _db;
     private readonly string _apiKey;
+    private readonly UserManager<ApplicationUser> _userManager;
 
-    public HomeController(RecipeBoxContext db, IConfiguration configuration)
+    public HomeController(UserManager<ApplicationUser> userManager, RecipeBoxContext db, IConfiguration configuration)
     {
+        _userManager = userManager;
         _db = db;
         _apiKey = configuration["MealDb"];
-        }
+    }
 
     [HttpGet("/")]
-    public ActionResult Index()
+    public async Task<ActionResult> Index()
     {
-        Recipe[] recipes = _db.Recipes.OrderByDescending(recipe => recipe.Rating).ToArray();
         Ingredient[] ingredients = _db.Ingredients.ToArray();
         Dictionary<string, object[]> model = new Dictionary<string, object[]>();
-        model.Add("recipes", recipes);
-        model.Add("ingredients", ingredients);
-        return View(model);
-
+        string userId = this.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+        ApplicationUser currentUser = await _userManager.FindByIdAsync(userId);
+        if (currentUser != null)
+        {
+            Recipe[] recipes = _db.Recipes.Where(entry => entry.User.Id == currentUser.Id).ToArray();
+            model.Add("recipes", recipes);
+            model.Add("ingredients", ingredients);
+            return View(model);
+        }
+        else
+        {
+            model.Add("recipes", new Recipe[1]);
+            model.Add("ingredients", new Ingredient[1]);
+            return View(model);
+        }
+        
     }
+
     public ActionResult Search(string searchTerm)
     {
         List<Recipe> recipeResults = _db.Recipes

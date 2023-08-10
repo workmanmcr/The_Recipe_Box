@@ -32,6 +32,7 @@ else
             @foreach (var ingredient in Model.IngredientResults)
             {
                 <li>@Html.ActionLink(ingredient.IngredientName, "Details", "Ingredients", new { id = ingredient.IngredientId})</li>
+                <p>@Html.ActionLink("Home", "Index")</p>
             }
         </ul>
     }
